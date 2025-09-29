@@ -8,8 +8,16 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
+// CORS middleware properly configure
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:3000", "https://full-stack-frontend-mu.vercel.app"], // frontend origins
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // cookies / auth tokens allow
+  })
+);
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -21,5 +29,5 @@ connectDB();
 // Port
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`App is running at port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
